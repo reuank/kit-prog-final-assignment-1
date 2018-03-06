@@ -1,8 +1,10 @@
 package edu.kit.informatik.interfaces;
 
-import edu.kit.informatik.constructs.program.Command;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 
+/**
+ * An interface for executable commands.
+ */
 public interface IExecutableCommand extends ICommand {
     /**
      * Tries to execute the given command using the processes defined in the specific command class.

@@ -1,5 +1,8 @@
 package edu.kit.informatik.exceptions;
 
+/**
+ * The exception thrown if a position on the gameboard is already occupied.
+ */
 public class PosOccupiedException extends Exception {
     /**
      * Instantiates a Exceptions that shall be thrown if a position on the gameboard is already occupied.

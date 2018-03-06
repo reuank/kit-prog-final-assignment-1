@@ -1,5 +1,8 @@
 package edu.kit.informatik.interfaces;
 
+/**
+ * An interface for commands.
+ */
 public interface ICommand {
     /**
      * Used to get the slug of the command.

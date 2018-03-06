@@ -1,5 +1,9 @@
 package edu.kit.informatik.constructs.program;
 
+/**
+ * This class is the blueprint for a command signature. A signature specifies how a valid command call looks like.
+ * In the command signature, the command slug and the command arguments are encoded.
+ */
 public class CommandSignature {
     private String commandSignature;
     private String slug;

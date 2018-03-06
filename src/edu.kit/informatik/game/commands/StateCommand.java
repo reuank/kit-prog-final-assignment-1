@@ -11,6 +11,10 @@ import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
 
+/**
+ * The executable implementation of the "state" command.
+ * Builds a String representation of single position on the game board.
+ */
 public class StateCommand implements IExecutableCommand {
     private ConnectSix game;
     private CommandSignature commandSignature = new CommandSignature("state row:int;col:int");
@@ -24,19 +28,22 @@ public class StateCommand implements IExecutableCommand {
     }
 
     @Override
-    public void tryToExecute(ICommand passedCommand, StringBuilder outputStream) throws InvalidCallOfCommandException {
+    public void tryToExecute(ICommand command, StringBuilder outputStream) throws InvalidCallOfCommandException {
         try {
-            ConnectSixValidator.validateCommand(passedCommand, this.commandSignature);
+            ConnectSixValidator.validateCommand(command, this.commandSignature);
 
-            int row = Integer.parseInt(passedCommand.getArg(0));
-            int col = Integer.parseInt(passedCommand.getArg(1));
+            int row = Integer.parseInt(command.getArg(0));
+            int col = Integer.parseInt(command.getArg(1));
             Position point = game.getGameBoard().convertPosition(new Position(row, col));
 
             outputStream.append(StateSerializer.serialize(game.getState(point)));
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + passedCommand.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    String.format("command %s could not be executed. The required structure is %s, but %s",
+                            command.getSlug(),
+                            this.commandSignature.getCommandSignature(),
+                            validationException.getMessage())
+            );
         } catch (CoordsOutOfBoundsException exception) {
             throw new InvalidCallOfCommandException(exception.getMessage());
         }

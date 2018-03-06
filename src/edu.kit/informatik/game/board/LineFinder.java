@@ -6,6 +6,9 @@ import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 
 import static edu.kit.informatik.constructs.program.Direction.*;
 
+/**
+ * Used as a helper that is able to search for linear structures (lines) of a certain length in a given field.
+ */
 public class LineFinder {
     private GameBoard gameBoard;
     private Direction[][] horizontal = {{LEFT}, {RIGHT}};
@@ -22,22 +25,22 @@ public class LineFinder {
     }
 
     /**
-     * Finds lines of a specific length that go through the position includingPosition.
-     * @param includingPosition The position on the board where the search should start.
-     * @param lineLength The length of lines that
+     * Finds lines of a specific length that go through the position "including".
+     * @param including The position on the board where the search should start.
+     * @param lineLength The length of lines that shall be searched for.
      * @return Return whether there are lines of the given length including the given point.
      * @throws CoordsOutOfBoundsException Thrown if the given position is not on the board.
      */
 
-    public boolean findLines(Position includingPosition, int lineLength) throws CoordsOutOfBoundsException {
-        return findLine(includingPosition, lineLength, horizontal)
-                || findLine(includingPosition, lineLength, vertical)
-                || findLine(includingPosition, lineLength, diagonal)
-                || findLine(includingPosition, lineLength, antidiagonal);
+    public boolean findLines(Position including, int lineLength) throws CoordsOutOfBoundsException {
+        return findLine(including, lineLength, horizontal)
+                || findLine(including, lineLength, vertical)
+                || findLine(including, lineLength, diagonal)
+                || findLine(including, lineLength, antidiagonal);
     }
 
     /**
-     * Finds a line of a specific length that goes through the position including in a specific direction
+     * Finds a line of a specific length that goes through the position "including" in a specific direction
      * @param including The position the line that is being searched for shall include.
      * @param len The length the line shall have.
      * @param dirs The set of directions that shall be checked.

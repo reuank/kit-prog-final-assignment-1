@@ -8,12 +8,18 @@ import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.GameOptions;
 import edu.kit.informatik.validation.SyntaxValidator;
 
+/**
+ * The abstract parent class of the game board.
+ * All the actions that have to do with the game board itself are defined here.
+ * The specific game boards that inherit from this class override the "convertCoordinate" method, because this is
+ * the only difference between the game modes so far.
+ */
 public abstract class GameBoard {
     /** The actual integer array that holds the values of the game board. */
-    int[][] field;
+    private int[][] field;
 
     /** The line finder that belongs to the game board. */
-    LineFinder lineFinder;
+    private LineFinder lineFinder;
 
 
     /* ****** CONVERSIONS ****** */
@@ -25,9 +31,10 @@ public abstract class GameBoard {
      * @throws CoordsOutOfBoundsException Thrown if the position is outside the game board.
      */
     public Position convertPosition(Position position) throws CoordsOutOfBoundsException {
-        int newRow = this.convertCoordinate(position.getRow(), true);
-        int newCol = this.convertCoordinate(position.getCol(), true);
-        return new Position(newRow, newCol);
+        return new Position(
+            this.convertCoordinate(position.getRow(), true),
+            this.convertCoordinate(position.getCol(), true)
+        );
     }
 
     /**
@@ -40,11 +47,13 @@ public abstract class GameBoard {
         try {
             return SyntaxValidator.validateInt(coordinate)
                     .isInRange(0, field.length - 1)
-                    .throwIfInvalid("given coordinates")
+                    .throwIfInvalid("coordinates")
                     .getResult();
         } catch (ValidationException validationException) {
-            throw new CoordsOutOfBoundsException("the given coordinates are out of the bounds of the game boards "
-                    + "for this game mode. They " + validationException.getMessage());
+            throw new CoordsOutOfBoundsException(
+                    String.format("the given coordinates are out of the bounds of the game boards for this game mode. "
+                            + "The %s", validationException.getMessage())
+            );
         }
     }
 
@@ -73,8 +82,12 @@ public abstract class GameBoard {
         int state = getState(convertedPosition);
 
         if (state != 0) { // position already occupied
-            throw new PosOccupiedException("the field " + convertedPosition.getRow() + ";" + convertedPosition.getCol()
-                    + " is already occupied by Player " + state + ".");
+            throw new PosOccupiedException(
+                    String.format("the field %d;%d is already occupied by Player %d.",
+                            convertedPosition.getRow(),
+                            convertedPosition.getCol(),
+                            state)
+            );
         }
 
         place(player, convertedPosition);
@@ -171,7 +184,7 @@ public abstract class GameBoard {
     }
 
     /**
-     * Used to recieve a whole column of the game board.
+     * Used to receive a whole column of the game board. Works
      * @param colId The id of the column that shall be returned.
      * @return Returns all the values in the given column.
      * @throws CoordsOutOfBoundsException Thrown if the column is not on the game board, independent of the game mode.
@@ -186,10 +199,28 @@ public abstract class GameBoard {
         return col;
     }
 
+    /* ****** SETTERS ****** */
+
     /**
      * Checks whether a given position is outside the game board.
      * @param position The position that shall be checked.
      * @return Return true if the position is on the game board.
      */
     public abstract boolean isOutsideBoard(Position position);
+
+    /**
+     * Overrides the field of the game board with a new one.
+     * @param field The new field of the game board.
+     */
+    public void setField(int[][] field) {
+        this.field = field;
+    }
+
+    /**
+     * Overrides the line finder of the game board with a new one.
+     * @param lineFinder The new line finder of the game board.
+     */
+    public void setLineFinder(LineFinder lineFinder) {
+        this.lineFinder = lineFinder;
+    }
 }

@@ -1,5 +1,10 @@
 package edu.kit.informatik.constructs.databind;
 
+/**
+ * This class is used as a blueprint for a key-value-pair, also known as a map.
+ * @param <K> The data type of the key.
+ * @param <V> The data type of the value.
+ */
 public class KeyValuePair<K, V> {
     private K key;
     private V value;

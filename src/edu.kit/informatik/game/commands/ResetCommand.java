@@ -8,10 +8,18 @@ import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
 
+/**
+ * The executable implementation of the "reset" command.
+ * Resets the whole game and restarts it.
+ */
 public class ResetCommand implements IExecutableCommand {
     private ConnectSix game;
     private CommandSignature commandSignature = new CommandSignature("reset");
 
+    /**
+     * Instantiates a new Reset command that contains all the methodology needed to execute the command.
+     * @param game The game in which the command is valid.
+     */
     public ResetCommand(ConnectSix game) {
         this.game = game;
     }
@@ -22,14 +30,17 @@ public class ResetCommand implements IExecutableCommand {
             ConnectSixValidator.validateCommand(command, this.commandSignature);
 
             this.game.reset();
+
             outputStream.append("OK");
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + command.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    String.format("command %s could not be executed. The required structure is %s, but %s",
+                            command.getSlug(),
+                            this.commandSignature.getCommandSignature(),
+                            validationException.getMessage())
+            );
         }
     }
-
 
     @Override
     public String getSlug() {

@@ -1,5 +1,8 @@
 package edu.kit.informatik.exceptions;
 
+/**
+ * The exception thrown if the provided game options are invalid or empty.
+ */
 public class InvalidGameOptionsException extends Exception {
     /**
      * Instantiates a Exceptions that shall be thrown if the provided game options are invalid or empty.

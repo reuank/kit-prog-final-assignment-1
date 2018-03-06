@@ -1,5 +1,8 @@
 package edu.kit.informatik.constructs.math;
 
+/**
+ * Used to store integer ranges as an object. The bounds are included in the range.
+ */
 public class IntRange {
     private int lowerBound;
     private int upperBound;

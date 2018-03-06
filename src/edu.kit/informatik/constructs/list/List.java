@@ -1,10 +1,14 @@
 package edu.kit.informatik.constructs.list;
 
+/**
+ * Used to store list items in a singly linked list.
+ * @param <T> The data type of the list elements.
+ */
 public class List<T> {
     private ListItem head;
 
     /**
-     * Constructor for lists.
+     * Constructor for lists. Creates an empty head for the list.
      */
     public List() {
         this.head = null;
@@ -39,7 +43,7 @@ public class List<T> {
 
     /**
      * Adds an item to a list at a specific index. Adds to the end of the list, if "addAt" is invalid.
-     * @param item The item that should be added
+     * @param item The item that should be added.
      * @param addAt The index you want to place the element at.
      */
     public void add(T item, int addAt) {
@@ -82,9 +86,9 @@ public class List<T> {
     }
 
     /**
-     * Removes a list element from a list
-     * @param needle The element that should be removed
-     * @return Returns true if the element was removed
+     * Removes a list element from a list.
+     * @param needle The element that should be removed.
+     * @return Returns true if the element was removed.
      */
     public boolean remove(T needle) {
         if (needle == null) {
@@ -94,21 +98,21 @@ public class List<T> {
         ListItem i = this.head;
         boolean deleted = false;
 
-        // Head Element(e) entfernen
+        // Remove head elements
         while (i != null && i.itemData == needle) {
             i = i.next;
             this.head = i;
             deleted = true;
         }
 
-        // Liste leer?
+        // List empty?
         if (i == null) {
-            return deleted; // Nichts mehr zu tun...
+            return deleted; // Nothing more to do...
         }
 
-        // Liste durchsuchen
+        // Search list
         while (i.next != null) {
-            if (i.next.itemData == needle) { // Gefunden -> Löschen
+            if (i.next.itemData == needle) { // found -> delete
                 i.next = i.next.next;
                 deleted = true;
             } else {
@@ -120,18 +124,18 @@ public class List<T> {
     }
 
     /**
-     * Removes the n-th element from a list
-     * @param index The index of the element that should be removed
-     * @return Returns true if the element was removed
+     * Removes the n-th element from a list.
+     * @param index The index of the element that should be removed.
+     * @return Returns true if the element was removed.
      */
     public boolean remove(int index) {
         return remove(get(index));
     }
 
     /**
-     * Gets the n-th list element
-     * @param index The position of the element you want to get, beginning at 1
-     * @return Returns the n-th list element (n = index)
+     * Gets the n-th list element.
+     * @param index The position of the element you want to get, beginning at 1.
+     * @return Returns the n-th list element (n = index).
      */
     public T get(int index) {
         if (index < 0 || (index > size() - 1)) {
@@ -154,29 +158,29 @@ public class List<T> {
     }
 
     /**
-     * @return Returns the first list element, null if list is empty
+     * @return Returns the first list element, null if list is empty.
      */
     public T getFirst() {
         return get(0);
     }
 
     /**
-     * @return Returns the last list element, null if list is empty
+     * @return Returns the last list element, null if list is empty.
      */
     public T getLast() {
         return get(size() - 1);
     }
 
     /**
-     * Checks whether there are elements in the list
-     * @return Returns false if there are list elements in the list
+     * Checks whether there are elements in the list.
+     * @return Returns false if there are list elements in the list.
      */
     public boolean isEmpty() {
         return !this.iterator().hasNext();
     }
 
     /**
-     * @return Returns the size of the list, beginning at 1
+     * @return Returns the size of the list, beginning at 1.
      */
     public int size() {
         int size = 0;
@@ -205,7 +209,7 @@ public class List<T> {
     public final class Iterator {
         private ListItem cursor;
 
-        private Iterator(ListItem start) { // privater Konstruktor
+        private Iterator(ListItem start) {
             this.cursor = start;
         }
 
@@ -221,14 +225,14 @@ public class List<T> {
         }
 
         /**
-         * @return Returns true if list element has next element
+         * @return Returns true if list element has next element.
          */
         public boolean hasNext() { // query
             return this.cursor != null;
         }
 
         /**
-         * Moves the cursor one step further in the list
+         * Moves the cursor one step further in the list.
          */
         public void next() { // command
             this.cursor = this.cursor.next;

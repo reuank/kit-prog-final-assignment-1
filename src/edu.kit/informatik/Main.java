@@ -12,6 +12,11 @@ import edu.kit.informatik.userinterface.commands.QuitCommand;
 
 /**
  * @author Leon Knauer
+ *
+ * General comments:
+ * - Input processing workflow: Input -> Parsing -> Validation -> Execution (if Executable command) -> Output
+ * - The Executable commands are used for semantic validation and then passing the data to the game instance
+ * - All the game logic itself is implemented in the ConnectSix class.
  */
 
 public class Main {

@@ -4,6 +4,9 @@ import edu.kit.informatik.constructs.program.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.game.GameOptions;
 
+/**
+ * The board used when playing in game mode "torus".
+ */
 public class TorusBoard extends GameBoard {
     /**
      * Instantiates a new torus game board.
@@ -11,8 +14,8 @@ public class TorusBoard extends GameBoard {
      */
     public TorusBoard(GameOptions gameOptions) {
         if (gameOptions.getGameMode().equals("torus")) {
-            this.field = new int[gameOptions.getFieldSize()][gameOptions.getFieldSize()];
-            this.lineFinder = new LineFinder(this);
+            this.setField(new int[gameOptions.getFieldSize()][gameOptions.getFieldSize()]);
+            this.setLineFinder(new LineFinder(this));
         } else {
             throw new IllegalArgumentException("Program failed. Called the game board wrong constructor.");
         }
@@ -24,7 +27,7 @@ public class TorusBoard extends GameBoard {
             return convertCoordinate(coordinate);
         }
 
-        return Math.floorMod(coordinate, field.length);
+        return Math.floorMod(coordinate, this.getFieldSize());
     }
 
     @Override

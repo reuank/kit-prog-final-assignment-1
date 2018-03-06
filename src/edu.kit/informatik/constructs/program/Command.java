@@ -3,9 +3,9 @@ package edu.kit.informatik.constructs.program;
 import edu.kit.informatik.interfaces.ICommand;
 
 /**
- * Only a Class that holds data. These Commands are not yet executable, but at least have the structure of a Command.
- * These Objects will be passed to the corresponding Class that implements IExecutableCommand, where the set of
- * instructions is held.
+ * This classed is used only for holding command data. These Commands are not yet executable, but at least have the
+ * structure of a Command. These Objects will be passed to the corresponding class that implements IExecutableCommand,
+ * where the set of instructions which is applicable to the command is held.
  */
 public class Command implements ICommand {
     private String slug;

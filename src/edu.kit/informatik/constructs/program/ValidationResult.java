@@ -1,7 +1,7 @@
 package edu.kit.informatik.constructs.program;
 
 /**
- * In a  ValidationResult, all the messages of a validation get stored, so that a complete validation can happen
+ * In a ValidationResult, all the messages of a validation get stored, so that a complete validation can happen
  * before the error message gets printed.
  */
 public class ValidationResult {

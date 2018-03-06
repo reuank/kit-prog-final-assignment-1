@@ -4,6 +4,9 @@ import edu.kit.informatik.constructs.program.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.game.GameOptions;
 
+/**
+ * The board used when playing in game mode "standard".
+ */
 public class StandardBoard extends GameBoard {
     /**
      * Instantiates a new standard game board.
@@ -11,8 +14,8 @@ public class StandardBoard extends GameBoard {
      */
     public StandardBoard(GameOptions gameOptions) {
         if (gameOptions.getGameMode().equals("standard")) {
-            this.field = new int[gameOptions.getFieldSize()][gameOptions.getFieldSize()];
-            this.lineFinder = new LineFinder(this);
+            this.setField(new int[gameOptions.getFieldSize()][gameOptions.getFieldSize()]);
+            this.setLineFinder(new LineFinder(this));
         } else {
             throw new IllegalArgumentException("Program failed. Called the game board wrong constructor.");
         }

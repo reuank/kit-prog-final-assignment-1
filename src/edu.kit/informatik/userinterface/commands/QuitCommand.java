@@ -8,6 +8,9 @@ import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
 import edu.kit.informatik.userinterface.CLI;
 
+/**
+ *
+ */
 public class QuitCommand implements IExecutableCommand {
     private CLI userInterface;
     private CommandSignature commandSignature = new CommandSignature("quit");

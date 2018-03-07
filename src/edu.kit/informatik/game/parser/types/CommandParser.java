@@ -1,13 +1,15 @@
-package edu.kit.informatik.game.parser;
+package edu.kit.informatik.game.parser.types;
 
 import edu.kit.informatik.constructs.program.Command;
 import edu.kit.informatik.exceptions.ParserException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.interfaces.ICommand;
-import edu.kit.informatik.interfaces.IExecutableCommand;
 import edu.kit.informatik.interfaces.IParser;
 import edu.kit.informatik.validation.SyntaxValidator;
 
+/**
+ * Used for parsing a String to a command object.
+ */
 public class CommandParser implements IParser<ICommand> {
     @Override
     public ICommand parse(String input) throws ParserException {

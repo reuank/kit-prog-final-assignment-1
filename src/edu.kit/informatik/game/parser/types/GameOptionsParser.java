@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.parser;
+package edu.kit.informatik.game.parser.types;
 
 import edu.kit.informatik.exceptions.ParserException;
 import edu.kit.informatik.exceptions.ValidationException;
@@ -6,6 +6,9 @@ import edu.kit.informatik.game.GameOptions;
 import edu.kit.informatik.interfaces.IParser;
 import edu.kit.informatik.validation.SyntaxValidator;
 
+/**
+ * Used for parsing a String to a game options object.
+ */
 public class GameOptionsParser implements IParser<GameOptions> {
     @Override
     public GameOptions parse(String input) throws ParserException {

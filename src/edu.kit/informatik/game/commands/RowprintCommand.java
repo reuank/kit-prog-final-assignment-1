@@ -1,6 +1,5 @@
 package edu.kit.informatik.game.commands;
 
-import edu.kit.informatik.constructs.program.Command;
 import edu.kit.informatik.constructs.program.CommandSignature;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
@@ -10,8 +9,11 @@ import edu.kit.informatik.game.serializers.RowSerializer;
 import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
-import edu.kit.informatik.validation.SyntaxValidator;
 
+/**
+ * The executable implementation of the "rowprint" command.
+ * Builds a String representation of a particular row of the game board.
+ */
 public class RowprintCommand implements IExecutableCommand {
     private ConnectSix game;
     private CommandSignature commandSignature = new CommandSignature("rowprint row:int");
@@ -29,15 +31,20 @@ public class RowprintCommand implements IExecutableCommand {
         try {
             ConnectSixValidator.validateCommand(command, this.commandSignature);
 
+            // As the rowprint command is required to only accept values from 0 to N-1 (N = game board size),
+            // the range restrictions are already applied here.
             int rowId = Integer.parseInt(command.getArg(0));
             rowId = game.convertCoordinate(rowId, false);
 
             String rowRepresentation = RowSerializer.serialize(game.getGameBoard(), rowId);
             outputStream.append(rowRepresentation);
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + command.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    String.format("command %s could not be executed. The required structure is %s, but %s",
+                            command.getSlug(),
+                            this.commandSignature.getCommandSignature(),
+                            validationException.getMessage())
+            );
         } catch (CoordsOutOfBoundsException exception) {
             throw new InvalidCallOfCommandException(exception.getMessage());
         }

@@ -12,6 +12,10 @@ import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
 
+/**
+ * The executable implementation of the "place" command.
+ * Validates and passes moves to the game.
+ */
 public class PlaceCommand implements IExecutableCommand {
     private ConnectSix game;
     private CommandSignature commandSignature = new CommandSignature("place row1:int;col1:int;row2:int;col2:int");
@@ -55,9 +59,12 @@ public class PlaceCommand implements IExecutableCommand {
                 outputStream.append("OK");
             }
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + command.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    String.format("command %s could not be executed. The required structure is %s, but %s",
+                            command.getSlug(),
+                            this.commandSignature.getCommandSignature(),
+                            validationException.getMessage())
+            );
         } catch (PosOccupiedException | CoordsOutOfBoundsException exception) {
             game.undoLastMoves();
             throw new InvalidCallOfCommandException(exception.getMessage());

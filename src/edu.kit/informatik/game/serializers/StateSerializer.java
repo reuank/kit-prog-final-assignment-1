@@ -1,5 +1,8 @@
 package edu.kit.informatik.game.serializers;
 
+/**
+ * Builds a string representation of a position on the game board.
+ */
 public class StateSerializer {
     /**
      * Used for building a String representation of a field on the game board.

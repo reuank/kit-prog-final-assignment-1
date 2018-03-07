@@ -3,6 +3,9 @@ package edu.kit.informatik.game.serializers;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.game.board.GameBoard;
 
+/**
+ * Builds a string representation of a row of the game board.
+ */
 public class RowSerializer {
     /**
      * Used for building a String representation of a row of the game board.

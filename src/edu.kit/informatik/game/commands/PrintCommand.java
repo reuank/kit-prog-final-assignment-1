@@ -9,6 +9,10 @@ import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
 
+/**
+ * The executable implementation of the "print" command.
+ * Builds a String representation of the whole game board.
+ */
 public class PrintCommand implements IExecutableCommand {
     private ConnectSix game;
     private CommandSignature commandSignature = new CommandSignature("print");
@@ -27,11 +31,15 @@ public class PrintCommand implements IExecutableCommand {
             ConnectSixValidator.validateCommand(command, this.commandSignature);
 
             String gameBoardRepresentation = GameBoardSerializer.serialize(game.getGameBoard());
+
             outputStream.append(gameBoardRepresentation);
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + command.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    String.format("command %s could not be executed. The required structure is %s, but %s",
+                            command.getSlug(),
+                            this.commandSignature.getCommandSignature(),
+                            validationException.getMessage())
+            );
         }
     }
 

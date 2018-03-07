@@ -1,5 +1,8 @@
 package edu.kit.informatik.interfaces;
 
+/**
+ * An interface for user interfaces.
+ */
 public interface IUserInterface {
     /**
      * Registers all the valid commands that are executable in the user interface.

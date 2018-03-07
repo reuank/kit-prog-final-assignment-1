@@ -1,5 +1,8 @@
 package edu.kit.informatik.exceptions;
 
+/**
+ * The exception thrown if a undefined command was passed.
+ */
 public class CommandUndefinedException extends Exception {
     /**
      * Instantiates a Exceptions that shall be thrown if a undefined command was passed.

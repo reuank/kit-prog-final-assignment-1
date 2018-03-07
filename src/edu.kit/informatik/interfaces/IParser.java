@@ -2,6 +2,9 @@ package edu.kit.informatik.interfaces;
 
 import edu.kit.informatik.exceptions.ParserException;
 
+/**
+ * An interface for parsers.
+ */
 public interface IParser<T> {
     /**
      * Parses an input String to a specific Object.

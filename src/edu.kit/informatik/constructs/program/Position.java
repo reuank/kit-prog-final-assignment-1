@@ -2,6 +2,9 @@ package edu.kit.informatik.constructs.program;
 
 import static edu.kit.informatik.constructs.program.Direction.*;
 
+/**
+ * This class is used for storing positions as objects. Every position has a row (y-coord.) and a column (x-coord.).
+ */
 public class Position {
     private int col;
     private int row;

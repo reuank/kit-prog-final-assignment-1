@@ -36,7 +36,7 @@ public class CommandParser implements IParser<ICommand> {
 
             return new Command(slug, arguments);
         } catch (ValidationException validationException) {
-            throw new ParserException("the command could not be parsed because " + validationException.getMessage());
+            throw new ParserException("command", validationException.getMessage());
         }
     }
 }

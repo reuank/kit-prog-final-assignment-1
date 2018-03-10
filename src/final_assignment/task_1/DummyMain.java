@@ -10,5 +10,5 @@ import program_examples.Main;
  * You can use 'git update-index --assume-unchanged <this file>' to disable committing.
  * To reenable it use git update-index --no-assume-unchanged <this file>'.
  */
-public class DummyMain extends edu.kit.informatik.Main{
+public class DummyMain extends edu.kit.informatik.Main {
 }

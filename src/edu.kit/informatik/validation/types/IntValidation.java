@@ -42,7 +42,7 @@ public class IntValidation {
      */
     public IntValidation isInRange(int lowerBound, int upperBound) {
         if (this.validateMe < lowerBound || this.validateMe > upperBound) {
-            return addError("should be in between " + lowerBound + " and " + upperBound);
+            return addError(String.format("should be in between %d and %d", lowerBound, upperBound));
         }
 
         return this;
@@ -55,7 +55,7 @@ public class IntValidation {
      */
     public IntValidation isExactly(int twin) {
         if (this.validateMe != twin) {
-            return addError("should be exactly " + twin);
+            return addError(String.format("should be exactly %d", twin));
         }
 
         return this;
@@ -68,7 +68,10 @@ public class IntValidation {
      */
     public IntValidation isInIntRange(IntRange intRange) {
         if (this.validateMe < intRange.getLowerBound() || this.validateMe > intRange.getUpperBound()) {
-            return addError("should be in between " + intRange.getLowerBound() + " and " + intRange.getUpperBound());
+            return addError(String.format("should be in between %d and %d",
+                    intRange.getLowerBound(),
+                    intRange.getUpperBound())
+            );
         }
 
         return this;
@@ -81,7 +84,7 @@ public class IntValidation {
      */
     public IntValidation isGreaterThan(int lowerBound) {
         if (this.validateMe <= lowerBound) {
-            return addError("should be greater than " + lowerBound);
+            return addError(String.format("should be greater than %d", lowerBound));
         }
 
         return this;
@@ -94,7 +97,7 @@ public class IntValidation {
      */
     public IntValidation isLessThan(int upperBound) {
         if (this.validateMe >= upperBound) {
-            return addError("should be less than  " + upperBound);
+            return addError(String.format("should be less than %d", upperBound));
         }
 
         return this;
@@ -155,7 +158,7 @@ public class IntValidation {
      */
     public IntValidation isMultipleOf(int value) {
         if (this.validateMe % value != 0) {
-            return addError("should be a multiple of " + value);
+            return addError(String.format("should be a multiple of %d", value));
         }
 
         return this;
@@ -169,7 +172,7 @@ public class IntValidation {
      */
     public IntValidation throwIfInvalid(String paramName) throws ValidationException {
         if (this.hasFailed()) {
-            throw new ValidationException(paramName + " " + this.getErrors() + ".");
+            throw new ValidationException(paramName, this.getErrors());
         }
 
         return this;

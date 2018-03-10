@@ -4,7 +4,7 @@ import edu.kit.informatik.constructs.program.CommandSignature;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.ConnectSix;
-import edu.kit.informatik.game.serializers.GameBoardSerializer;
+import edu.kit.informatik.game.serializers.ConnectSixSerializer;
 import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
@@ -30,15 +30,14 @@ public class PrintCommand implements IExecutableCommand {
         try {
             ConnectSixValidator.validateCommand(command, this.commandSignature);
 
-            String gameBoardRepresentation = GameBoardSerializer.serialize(game.getGameBoard());
+            String gameBoardRepresentation = ConnectSixSerializer.serializeGameBoard(this.game.getGameBoard());
 
             outputStream.append(gameBoardRepresentation);
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         }
     }

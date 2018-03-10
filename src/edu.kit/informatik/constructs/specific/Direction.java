@@ -1,4 +1,4 @@
-package edu.kit.informatik.constructs.program;
+package edu.kit.informatik.constructs.specific;
 
 /**
  * Used to encode directions on the board in a readable way.

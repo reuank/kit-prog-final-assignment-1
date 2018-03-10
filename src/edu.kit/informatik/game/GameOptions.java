@@ -6,24 +6,18 @@ import edu.kit.informatik.constructs.math.IntRange;
  * Used as a blueprint for game option objects and for storing general config data.
  */
 public class GameOptions {
-    /**
-     * The valid game modes.
-     */
-    public static String[] allowedGameModes = {"standard", "torus"};
 
-    /**
-     * The allowed integer range for the game board size.
-     */
-    public static IntRange allowedFieldSize = new IntRange(18, 20);
+    /*  */
+    /** The valid game modes. */
+    public static final String[] ALLOWED_GAME_MODES = {"standard", "torus"};
 
-    /**
-     * The allowed integer range for the player count.
-     */
-    public static IntRange allowedPlayerCount = new IntRange(2, 4);
+    /** The allowed integer range for the game board size. */
+    public static final IntRange ALLOWED_FIELD_SIZE = new IntRange(18, 20);
 
-    /**
-     * The game options object parameters.
-     */
+    /** The allowed integer range for the player count. */
+    public static final IntRange ALLOWED_PLAYER_COUNT = new IntRange(2, 4);
+
+    /** The game options object parameters. */
     private String gameMode;
     private int fieldSize;
     private int playerCount;

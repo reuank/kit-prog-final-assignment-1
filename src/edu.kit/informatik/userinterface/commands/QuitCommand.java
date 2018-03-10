@@ -16,7 +16,7 @@ public class QuitCommand implements IExecutableCommand {
     private CommandSignature commandSignature = new CommandSignature("quit");
 
     /**
-     * Instantiates a new Colprint command that contains all the methodology needed to execute the command.
+     * Instantiates a new Quit command that quits the game.
      * @param userInterface The userInterface in which the command is valid.
      */
     public QuitCommand(CLI userInterface) {
@@ -30,9 +30,11 @@ public class QuitCommand implements IExecutableCommand {
 
             userInterface.stop();
         } catch (ValidationException validationException) {
-            throw new InvalidCallOfCommandException("command \"" + command.getSlug() + "\" could not be executed."
-                    + " The required structure is \"" + this.commandSignature.getCommandSignature() + "\", but "
-                    + validationException.getMessage());
+            throw new InvalidCallOfCommandException(
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
+            );
         }
     }
 

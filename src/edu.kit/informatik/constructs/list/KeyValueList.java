@@ -14,15 +14,7 @@ public class KeyValueList<K, V> extends List<KeyValuePair<K, V>> {
      * @return Returns true if the key way found in the list.
      */
     public boolean containsKey(K key) {
-        Iterator it = iterator();
-        while (it.hasNext()) {
-            if (it.currentData().getKey().equals(key)) {
-                return true;
-            }
-            it.next();
-        }
-
-        return false;
+        return findPairByKey(key) != null;
     }
 
     /**
@@ -31,10 +23,19 @@ public class KeyValueList<K, V> extends List<KeyValuePair<K, V>> {
      * @return The value that belongs to the given key.
      */
     public V getValueByKey(K key) {
+        return findPairByKey(key).getValue();
+    }
+
+    /**
+     * Finds a KeyValuePair in the list that has a specific key.
+     * @param key The key that shall be searched for.
+     * @return Returns the matching KeyValuePair if existent, else null.
+     */
+    private KeyValuePair<K, V> findPairByKey(K key) {
         Iterator it = iterator();
         while (it.hasNext()) {
             if (it.currentData().getKey().equals(key)) {
-                return it.currentData().getValue();
+                return it.currentData();
             }
             it.next();
         }

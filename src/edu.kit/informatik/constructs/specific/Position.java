@@ -1,6 +1,6 @@
-package edu.kit.informatik.constructs.program;
+package edu.kit.informatik.constructs.specific;
 
-import static edu.kit.informatik.constructs.program.Direction.*;
+import static edu.kit.informatik.constructs.specific.Direction.*;
 
 /**
  * This class is used for storing positions as objects. Every position has a row (y-coord.) and a column (x-coord.).
@@ -117,6 +117,22 @@ public class Position {
      */
     public Position copy() {
         return new Position(this.getRow(), this.getCol());
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Position)) {
+            return false;
+        }
+
+        Position position = (Position) obj;
+
+        return this.row == position.getRow() &&  this.col == position.getCol();
     }
 
 

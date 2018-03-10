@@ -26,7 +26,7 @@ public class StringValidation {
      */
     public StringValidation isExactly(String twin) {
         if ( !this.validateMe.equals(twin)) {
-            return addError("should be exactly " + twin);
+            return addError(String.format("should be exactly %s", twin));
         }
 
         return this;
@@ -38,7 +38,7 @@ public class StringValidation {
      */
     public StringValidation isNotNull() {
         if (validateMe == null) {
-            return addError("should not be null.");
+            return addError("should not be null");
         }
 
         return this;
@@ -52,7 +52,7 @@ public class StringValidation {
     public StringValidation isInSet(String[] set) {
         StringBuilder setRepresentation = new StringBuilder();
         for (int i = 0; i < set.length; i++) {
-            setRepresentation.append("\"" + set[i] + "\"");
+            setRepresentation.append(String.format("\"%s\"", set[i]));
             setRepresentation.append(i < set.length - 1 ? " or " : "");
 
             if (set[i].equals(validateMe)) {
@@ -60,7 +60,7 @@ public class StringValidation {
             }
         }
 
-        return addError("should be either " + setRepresentation.toString() + ".");
+        return addError(String.format("should be either %s", setRepresentation.toString()));
     }
 
     /**
@@ -71,7 +71,7 @@ public class StringValidation {
      */
     public StringValidation throwIfInvalid(String paramName) throws ValidationException {
         if (this.hasFailed()) {
-            throw new ValidationException(paramName + " " + this.getErrors() + ".");
+            throw new ValidationException(paramName, this.getErrors());
         }
 
         return this;

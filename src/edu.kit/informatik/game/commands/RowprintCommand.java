@@ -5,7 +5,7 @@ import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.ConnectSix;
-import edu.kit.informatik.game.serializers.RowSerializer;
+import edu.kit.informatik.game.serializers.ConnectSixSerializer;
 import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
@@ -36,14 +36,13 @@ public class RowprintCommand implements IExecutableCommand {
             int rowId = Integer.parseInt(command.getArg(0));
             rowId = game.convertCoordinate(rowId, false);
 
-            String rowRepresentation = RowSerializer.serialize(game.getGameBoard(), rowId);
+            String rowRepresentation = ConnectSixSerializer.serializeRow(game.getGameBoard(), rowId);
             outputStream.append(rowRepresentation);
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         } catch (CoordsOutOfBoundsException exception) {
             throw new InvalidCallOfCommandException(exception.getMessage());

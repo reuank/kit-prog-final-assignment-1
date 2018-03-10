@@ -1,7 +1,7 @@
 package edu.kit.informatik.game;
 
-import edu.kit.informatik.constructs.list.PositionList;
-import edu.kit.informatik.constructs.program.Position;
+import edu.kit.informatik.constructs.list.List;
+import edu.kit.informatik.constructs.specific.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidGameOptionsException;
 import edu.kit.informatik.exceptions.PosOccupiedException;
@@ -15,13 +15,13 @@ import edu.kit.informatik.game.validation.ConnectSixValidator;
 public class ConnectSix {
     private GameBoard gameBoard;
     private GameOptions gameOptions;
-    private PositionList lastMoves;
+    private List<Position> lastMoves;
     private int currentPlayer;
     private int winner; // -1 = not set, 0 = draw, rest: player that won
     private int moveCounter;
 
     /**
-     * Instanciates a new ConnectSix game if the passed game options are valid.
+     * Instantiates a new ConnectSix game if the passed game options are valid.
      * @param gameOptions The passed game options that have been parsed before already.
      * @throws InvalidGameOptionsException Thrown if the passed game options are semantically invalid.
      */
@@ -45,9 +45,9 @@ public class ConnectSix {
      * @throws PosOccupiedException Thrown if on one of the positions is already occupied by anyone.
      * @throws CoordsOutOfBoundsException Thrown if the coordinates are out of the bounds of the game board.
      */
-    public void tryPlaceMultiple(PositionList moves) throws PosOccupiedException, CoordsOutOfBoundsException {
-        this.lastMoves = new PositionList();
-        PositionList.Iterator it = moves.iterator();
+    public void tryPlaceMultiple(List<Position> moves) throws PosOccupiedException, CoordsOutOfBoundsException {
+        this.lastMoves = new List<>();
+        List<Position>.Iterator it = moves.iterator();
 
         while (it.hasNext()) { // Loop through the moves that should be done
             Position move = this.gameBoard.convertPosition(it.currentData());
@@ -69,7 +69,7 @@ public class ConnectSix {
      * Checks the impact of the last moves on the game, e.g. whether a move made the current player win.
      */
     private void checkConsequencesOfLastMoves() {
-        PositionList.Iterator it = this.lastMoves.iterator();
+        List<Position>.Iterator it = this.lastMoves.iterator();
         while (it.hasNext() && !this.hasEnded()) {
             Position move = it.currentData();
             if (moveWonGame(move)) {
@@ -101,7 +101,7 @@ public class ConnectSix {
      * Resets the last moves that have been done to state 0.
      */
     public void undoLastMoves() { // Only converted moves inside here!
-        PositionList.Iterator it = this.lastMoves.iterator();
+        List<Position>.Iterator it = this.lastMoves.iterator();
         while (it.hasNext()) {
             Position position = it.currentData();
             this.gameBoard.reset(position);
@@ -171,7 +171,7 @@ public class ConnectSix {
         this.currentPlayer = 1;
         this.moveCounter = 0;
         this.winner = -1;
-        this.lastMoves = new PositionList();
+        this.lastMoves = new List<>();
     }
 
     /**

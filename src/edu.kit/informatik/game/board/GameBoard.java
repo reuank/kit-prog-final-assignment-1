@@ -1,11 +1,13 @@
 package edu.kit.informatik.game.board;
 
-import edu.kit.informatik.constructs.program.Position;
+import edu.kit.informatik.constructs.specific.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidGameOptionsException;
 import edu.kit.informatik.exceptions.PosOccupiedException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.GameOptions;
+import edu.kit.informatik.game.board.types.StandardBoard;
+import edu.kit.informatik.game.board.types.TorusBoard;
 import edu.kit.informatik.validation.SyntaxValidator;
 
 /**
@@ -50,10 +52,7 @@ public abstract class GameBoard {
                     .throwIfInvalid("coordinates")
                     .getResult();
         } catch (ValidationException validationException) {
-            throw new CoordsOutOfBoundsException(
-                    String.format("the given coordinates are out of the bounds of the game boards for this game mode. "
-                            + "The %s", validationException.getMessage())
-            );
+            throw new CoordsOutOfBoundsException(validationException.getMessage());
         }
     }
 
@@ -82,12 +81,7 @@ public abstract class GameBoard {
         int state = getState(convertedPosition);
 
         if (state != 0) { // position already occupied
-            throw new PosOccupiedException(
-                    String.format("the field %d;%d is already occupied by Player %d.",
-                            convertedPosition.getRow(),
-                            convertedPosition.getCol(),
-                            state)
-            );
+            throw new PosOccupiedException(convertedPosition.getRow(), convertedPosition.getCol(), state);
         }
 
         place(player, convertedPosition);

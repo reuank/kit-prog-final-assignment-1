@@ -34,7 +34,7 @@ public class List<T> {
         }
 
         ListItem i = this.head;
-        while (i.next != null) { // Go to the end of the lsit
+        while (i.next != null) { // Go to the end of the list
             i = i.next;
         }
 
@@ -76,7 +76,7 @@ public class List<T> {
     public boolean contains(T needle) {
         Iterator it = iterator();
         while (it.hasNext()) {
-            if (it.currentData() == needle) {
+            if (it.currentData().equals(needle)) {
                 return true;
             }
             it.next();

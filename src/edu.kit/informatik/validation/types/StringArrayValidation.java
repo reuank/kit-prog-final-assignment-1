@@ -57,7 +57,7 @@ public class StringArrayValidation {
         }
 
         if (this.validateMe.length <= length) {
-            return addError("should be longer than " + length);
+            return addError(String.format("should be longer than %d", length));
         }
 
         return this;
@@ -70,7 +70,7 @@ public class StringArrayValidation {
      */
     public StringArrayValidation isShorterOrEqualThan(int length) {
         if (this.validateMe.length >= length) {
-            return addError("should be shorter than " + length);
+            return addError(String.format("should be shorter than %d", length));
         }
 
         return this;
@@ -89,7 +89,7 @@ public class StringArrayValidation {
                 return addError("has length 0 instead of " + length);
             }
         } else if (this.validateMe.length != length ) {
-            return addError("has length " + this.validateMe.length + " instead of " + length);
+            return addError(String.format("has length %d instead of %d", this.validateMe.length, length));
         }
 
         return this;
@@ -107,7 +107,7 @@ public class StringArrayValidation {
         }
 
         if (this.validateMe.length < lowerBound || this.validateMe.length > upperBound) {
-            return addError("should have length between " + lowerBound + " and " + upperBound);
+            return addError(String.format("should have length between %d and %d", lowerBound, upperBound));
         }
 
         return this;
@@ -120,7 +120,7 @@ public class StringArrayValidation {
      */
     public StringArrayValidation isContaining(String needle) {
         if (this.validateMe == null) {
-            return addError("should not be null to be searched for \"" + needle + "\"");
+            return addError(String.format("should not be null to be searched for \"%s\"", needle));
         }
 
         for (String value : this.validateMe) {
@@ -153,9 +153,12 @@ public class StringArrayValidation {
 
         // Number of types to check not equals number of given types
         if (this.validateMe.length != argTypes.length) {
-            return addError("validation failed while trying to check the types in the passed arguments list. "
-                    + "The number of types to check (" + argTypes.length + ") does not match "
-                    + "the number of available arguments (" + this.validateMe.length + ").");
+            return addError(String.format("validation failed while trying to check the types in the passed "
+                            + "arguments list. The number of types to check (%d) does not match "
+                            + "the number of available arguments (%d)",
+                    argTypes.length,
+                    this.validateMe.length
+            ));
         }
 
         StringBuilder failedIntParams = new StringBuilder();
@@ -164,8 +167,8 @@ public class StringArrayValidation {
             switch (argTypes[i]) {
                 case "int":
                     if (SyntaxValidator.validateInt(this.validateMe[i]).hasFailed()) {
-                        failedIntParams.append((i + 1));
-                        failedIntParams.append(i < this.validateMe.length - 1 ? " and " : ""); // Add "and" separation
+                        failedIntParams.append(i + 1);
+                        failedIntParams.append("#"); // Add "#" separation, which will be replaces by " and " later.
                     }
                     break;
                 default:
@@ -173,8 +176,10 @@ public class StringArrayValidation {
             }
         }
 
-        String failedInts = failedIntParams.toString();
-        addError(!failedInts.equals("") ? "number " + failedIntParams.toString() + " is not an integer" : "");
+        // Convert the array of failed Integer validations to a human readable list.
+        String[] failedIntsArray = failedIntParams.toString().split("#", 0);
+        String failedIntsString = String.join(" and ", failedIntsArray);
+        addError(!failedIntsString.equals("") ? String.format("number %s is not an integer", failedIntsString) : "");
 
         return this;
     }
@@ -187,7 +192,7 @@ public class StringArrayValidation {
      */
     public StringArrayValidation throwIfInvalid(String paramName) throws ValidationException {
         if (this.hasFailed()) {
-            throw new ValidationException(paramName + " " + this.getErrors() + ".");
+            throw new ValidationException(paramName, this.getErrors());
         }
 
         return this;

@@ -5,10 +5,19 @@ package edu.kit.informatik.exceptions;
  */
 public class ValidationException extends Exception {
     /**
-     * Instantiates a Exceptions that shall be thrown if the validation process failed.
-     * @param exception The exception message.
+     * Instantiates an exception that shall be thrown if the validation process failed.
+     * @param exception The validation exception message that has been build during the validation process.
      */
     public ValidationException(String exception) {
         super(exception);
+    }
+
+    /**
+     * Instantiates an exception that shall be thrown if the validation process failed.
+     * @param paramName The param whose validation has failed.
+     * @param exception The validation exception message that has been build during the validation process.
+     */
+    public ValidationException(String paramName, String exception) {
+        super(String.format("%s %s.", paramName, exception));
     }
 }

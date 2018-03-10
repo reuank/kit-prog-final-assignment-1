@@ -5,7 +5,7 @@ import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.ConnectSix;
-import edu.kit.informatik.game.serializers.ColumnSerializer;
+import edu.kit.informatik.game.serializers.ConnectSixSerializer;
 import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
@@ -34,16 +34,15 @@ public class ColprintCommand implements IExecutableCommand {
             // As the colprint command is required to only accept values from 0 to N-1 (N = game board size),
             // the range restrictions are already applied here.
             int colId = Integer.parseInt(command.getArg(0));
-            colId = game.convertCoordinate(colId, false);
+            colId = this.game.convertCoordinate(colId, false);
 
-            String colRepresentation = ColumnSerializer.serialize(game.getGameBoard(), colId);
+            String colRepresentation = ConnectSixSerializer.serializeCol(this.game.getGameBoard(), colId);
             outputStream.append(colRepresentation);
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         } catch (CoordsOutOfBoundsException exception) {
             throw new InvalidCallOfCommandException(exception.getMessage());

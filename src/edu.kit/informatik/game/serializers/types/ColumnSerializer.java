@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.serializers;
+package edu.kit.informatik.game.serializers.types;
 
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.game.board.GameBoard;

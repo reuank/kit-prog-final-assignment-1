@@ -50,4 +50,20 @@ public class KeyValuePair<K, V> {
     public void setValue(V value) {
         this.value = value;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof KeyValuePair)) {
+            return false;
+        }
+
+        KeyValuePair pair = (KeyValuePair) obj;
+
+        return this.key == pair.getKey() && this.value == pair.getValue();
+    }
 }

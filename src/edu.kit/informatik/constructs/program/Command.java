@@ -35,4 +35,19 @@ public class Command implements ICommand {
     public String getArg(int index) {
         return (this.args != null && this.args.length > index) ? this.args[index] : null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Command)) {
+            return false;
+        }
+
+        Command command = (Command) obj;
+
+        return this.slug.equals(command.getSlug()) && this.args == command.getArgs();
+    }
 }

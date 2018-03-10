@@ -1,12 +1,12 @@
 package edu.kit.informatik.game.commands;
 
 import edu.kit.informatik.constructs.program.CommandSignature;
-import edu.kit.informatik.constructs.program.Position;
+import edu.kit.informatik.constructs.specific.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 import edu.kit.informatik.exceptions.ValidationException;
 import edu.kit.informatik.game.ConnectSix;
-import edu.kit.informatik.game.serializers.StateSerializer;
+import edu.kit.informatik.game.serializers.ConnectSixSerializer;
 import edu.kit.informatik.game.validation.ConnectSixValidator;
 import edu.kit.informatik.interfaces.ICommand;
 import edu.kit.informatik.interfaces.IExecutableCommand;
@@ -34,15 +34,14 @@ public class StateCommand implements IExecutableCommand {
 
             int row = Integer.parseInt(command.getArg(0));
             int col = Integer.parseInt(command.getArg(1));
-            Position point = game.getGameBoard().convertPosition(new Position(row, col));
+            Position position = this.game.getGameBoard().convertPosition(new Position(row, col));
 
-            outputStream.append(StateSerializer.serialize(game.getState(point)));
+            outputStream.append(ConnectSixSerializer.serializeState(this.game.getGameBoard(), position));
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         } catch (CoordsOutOfBoundsException exception) {
             throw new InvalidCallOfCommandException(exception.getMessage());

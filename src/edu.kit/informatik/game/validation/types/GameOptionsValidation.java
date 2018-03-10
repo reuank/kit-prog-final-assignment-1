@@ -28,16 +28,16 @@ public class GameOptionsValidation {
      */
     private void validate(GameOptions gameOptions) throws ValidationException {
         SyntaxValidator.validateString(gameOptions.getGameMode())
-                .isInSet(GameOptions.allowedGameModes)
+                .isInSet(GameOptions.ALLOWED_GAME_MODES)
                 .throwIfInvalid("Game mode");
 
         SyntaxValidator.validateInt(gameOptions.getFieldSize())
-                .isInIntRange(GameOptions.allowedFieldSize)
+                .isInIntRange(GameOptions.ALLOWED_FIELD_SIZE)
                 .isEven()
                 .throwIfInvalid("Field size");
 
         SyntaxValidator.validateInt(gameOptions.getPlayerCount())
-                .isInIntRange(GameOptions.allowedPlayerCount)
+                .isInIntRange(GameOptions.ALLOWED_PLAYER_COUNT)
                 .throwIfInvalid("Player count");
     }
 

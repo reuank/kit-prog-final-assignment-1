@@ -34,10 +34,9 @@ public class ResetCommand implements IExecutableCommand {
             outputStream.append("OK");
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         }
     }

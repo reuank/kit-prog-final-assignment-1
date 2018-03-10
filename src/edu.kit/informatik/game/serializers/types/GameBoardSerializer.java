@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.serializers;
+package edu.kit.informatik.game.serializers.types;
 
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.game.board.GameBoard;
@@ -23,7 +23,7 @@ public class GameBoardSerializer {
 
             return gameBoardRepresentation.toString();
         } catch (CoordsOutOfBoundsException exception) {
-            throw new IllegalStateException(); // should never be reached, as the coordinates never leave the board.
+            throw new IllegalStateException(exception); // never reached, as the coordinates never leave the board.
         }
     }
 }

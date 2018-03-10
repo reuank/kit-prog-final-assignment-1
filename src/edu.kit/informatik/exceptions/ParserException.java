@@ -5,10 +5,11 @@ package edu.kit.informatik.exceptions;
  */
 public class ParserException extends Exception {
     /**
-     * Instantiates a Exceptions that shall be thrown if the passed input data could not be parsed to a specific object.
+     * Instantiates an exception that shall be thrown if the passed input data could not be parsed to a specific object.
+     * @param paramName The name of the parameter that was tried to be parsed.
      * @param exception The exception message.
      */
-    public ParserException(String exception) {
-        super(exception);
+    public ParserException(String paramName, String exception) {
+        super(String.format("the %s could not be parsed because %s", paramName, exception));
     }
 }

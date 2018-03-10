@@ -1,5 +1,7 @@
 package edu.kit.informatik.constructs.program;
 
+import java.util.Arrays;
+
 /**
  * This class is the blueprint for a command signature. A signature specifies how a valid command call looks like.
  * In the command signature, the command slug and the command arguments are encoded.
@@ -137,5 +139,22 @@ public class CommandSignature {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CommandSignature)) {
+            return false;
+        }
+
+        CommandSignature sign = (CommandSignature) obj;
+
+        return this.slug.equals(sign.getSlug())
+                && Arrays.equals(this.args, sign.getArgs())
+                && this.commandSignature.equals(sign.getCommandSignature());
     }
 }

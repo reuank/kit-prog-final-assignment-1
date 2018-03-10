@@ -38,7 +38,7 @@ public class GameOptionsParser implements IParser<GameOptions> {
 
             return new GameOptions(gameMode, fieldSize, playerCount);
         } catch (ValidationException validationException) {
-            throw new ParserException("could not parse game options, because " + validationException.getMessage());
+            throw new ParserException("game options", validationException.getMessage());
         }
     }
 }

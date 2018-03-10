@@ -1,8 +1,8 @@
 package edu.kit.informatik.game.commands;
 
-import edu.kit.informatik.constructs.list.PositionList;
+import edu.kit.informatik.constructs.list.List;
 import edu.kit.informatik.constructs.program.CommandSignature;
-import edu.kit.informatik.constructs.program.Position;
+import edu.kit.informatik.constructs.specific.Position;
 import edu.kit.informatik.exceptions.CoordsOutOfBoundsException;
 import edu.kit.informatik.exceptions.InvalidCallOfCommandException;
 import edu.kit.informatik.exceptions.PosOccupiedException;
@@ -34,12 +34,12 @@ public class PlaceCommand implements IExecutableCommand {
             // Check the passed command against the signature it should have
             ConnectSixValidator.validateCommand(command, this.commandSignature);
 
-            if (game.hasEnded()) {
+            if (this.game.hasEnded()) {
                 throw new InvalidCallOfCommandException("the game has already ended!");
             }
 
             // If, and only if validation passed, convert the points and try to place them all
-            PositionList moves = new PositionList();
+            List<Position> moves = new List<>();
 
             // Loop through the moves that were passed
             for (int i = 0; i < command.getArgs().length; i += 2) {
@@ -49,21 +49,20 @@ public class PlaceCommand implements IExecutableCommand {
             }
 
             // Try to place all the passed moves
-            game.tryPlaceMultiple(moves);
+            this.game.tryPlaceMultiple(moves);
 
             // Check if the game is still running after the moves have been made
-            if (game.hasEnded()) {
-                outputStream.append(game.isDraw() ? "draw" : "P" + game.getWinner() + " wins");
+            if (this.game.hasEnded()) {
+                outputStream.append(this.game.isDraw() ? "draw" : "P" + this.game.getWinner() + " wins");
             } else {
-                game.nextPlayer();
+                this.game.nextPlayer();
                 outputStream.append("OK");
             }
         } catch (ValidationException validationException) {
             throw new InvalidCallOfCommandException(
-                    String.format("command %s could not be executed. The required structure is %s, but %s",
-                            command.getSlug(),
-                            this.commandSignature.getCommandSignature(),
-                            validationException.getMessage())
+                    command.getSlug(),
+                    this.commandSignature.getCommandSignature(),
+                    validationException.getMessage()
             );
         } catch (PosOccupiedException | CoordsOutOfBoundsException exception) {
             game.undoLastMoves();

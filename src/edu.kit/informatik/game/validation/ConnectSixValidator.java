@@ -9,6 +9,7 @@ import edu.kit.informatik.interfaces.ICommand;
 
 /**
  * The class that manages all the available type validations.
+ * This way all the available validations can be accessed via Intellisense by typing "ConnectSixValidator."
  */
 public class ConnectSixValidator {
     /**
